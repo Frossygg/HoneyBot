@@ -3,7 +3,7 @@ import os
 import discord
 from dotenv import load_dotenv
 
-from signal_parser import parse_signal
+from app.signal_parser import parse_signal
 
 load_dotenv()
 
