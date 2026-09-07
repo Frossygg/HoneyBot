@@ -59,3 +59,28 @@ def test_normal_message_is_ignored():
     result = parse_signal("Good morning everyone")
 
     assert result is None
+
+def test_dont_load_is_not_a_load_signal():
+    result = parse_signal("Don't load NVDA 230C 9/11 yet")
+
+    assert result is None   
+
+def test_watching_only_needs_ticker():
+    result = parse_signal("Watching NVDA")
+
+    assert result is not None
+    assert result["action"] == "WATCH"
+    assert result["ticker"] == "NVDA"
+    assert result["strike"] is None
+    assert result["option_type"] is None
+    assert result["expiration"] is None 
+
+def test_watching_full_contract_is_allowed():
+    result = parse_signal("Watching NVDA 230C 9/11")
+
+    assert result is not None
+    assert result["action"] == "WATCH"
+    assert result["ticker"] == "NVDA"
+    assert result["strike"] == "230"
+    assert result["option_type"] == "CALL"
+    assert result["expiration"] == "9/11"
