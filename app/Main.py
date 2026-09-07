@@ -1,6 +1,31 @@
-def main():
-    print("🍯 HoneyBot starting...")
+import os
+
+import discord
+from dotenv import load_dotenv
 
 
-if __name__ == "__main__":
-    main()
+load_dotenv()
+
+DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
+
+
+@client.event
+async def on_ready():
+    print(f"🍯 HoneyBot is online as {client.user}")
+
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.lower() == "!hello":
+        await message.channel.send("🍯 Hello!")
+
+
+client.run(DISCORD_BOT_TOKEN)
