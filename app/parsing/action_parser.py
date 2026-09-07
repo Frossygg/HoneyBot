@@ -28,5 +28,9 @@ def detect_action(message_text):
 
     if re.search(load_pattern, normalized_text, re.IGNORECASE):
         return "LOAD"
+    in_pattern = r"\bin\b"
+
+    if re.search(in_pattern, normalized_text, re.IGNORECASE):
+        return "IN"
 
     return None

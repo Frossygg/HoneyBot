@@ -84,3 +84,20 @@ def test_watching_full_contract_is_allowed():
     assert result["strike"] == "230"
     assert result["option_type"] == "CALL"
     assert result["expiration"] == "9/11"
+
+def test_in_with_full_contract_is_parsed():
+    result = parse_signal("In TSLA 387.5C 9/11")
+
+    assert result is not None
+    assert result["action"] == "IN"
+    assert result["ticker"] == "TSLA"
+    assert result["strike"] == "387.5"
+    assert result["option_type"] == "CALL"
+    assert result["expiration"] == "9/11"
+
+
+def test_bare_in_does_not_guess_yet():
+    result = parse_signal("In")
+
+    assert result is None
+    

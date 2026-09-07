@@ -53,5 +53,17 @@ def parse_signal(message_text):
             "expiration": contract["expiration"],
             "raw_message": message_text.strip(),
         }
+    if action == "IN":
+        if contract is None:
+            return None
+
+        return {
+            "action": action,
+            "ticker": contract["ticker"],
+            "strike": contract["strike"],
+            "option_type": contract["option_type"],
+            "expiration": contract["expiration"],
+            "raw_message": message_text.strip(),
+        }   
 
     return None
