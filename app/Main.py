@@ -34,7 +34,10 @@ async def on_message(message):
     if signal:
         await message.channel.send(
             f"🟡 {signal['action']} detected\n"
-            f"{signal['raw_message']}"
+            f"Ticker: {signal['ticker']}\n"
+            f"Strike: {signal['strike']}\n"
+            f"Type: {signal['option_type']}\n"
+            f"Expiration: {signal['expiration']}"
         )
 
 client.run(DISCORD_BOT_TOKEN)
