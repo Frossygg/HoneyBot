@@ -3,6 +3,7 @@ import os
 import discord
 from dotenv import load_dotenv
 
+from signal_parser import parse_signal
 
 load_dotenv()
 
@@ -26,6 +27,14 @@ async def on_message(message):
 
     if message.content.lower() == "!hello":
         await message.channel.send("🍯 Hello!")
+        return
 
+    signal = parse_signal(message.content)
+
+    if signal:
+        await message.channel.send(
+            f"🟡 {signal['action']} detected\n"
+            f"{signal['raw_message']}"
+        )
 
 client.run(DISCORD_BOT_TOKEN)
